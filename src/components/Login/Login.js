@@ -40,11 +40,18 @@ const Login = (props) => {
             }
             sessionStorage.setItem('account', JSON.stringify(data));
             history.push('/users');
+            window.location.reload();
         }
         if(response && response.data && +response.data.EC !== 0){
             toast.error(response.data.EM)
         }
     }
+
+    const handlePressEnter = (e) => {
+        if(e.charCode === 13 && e.code === 'Enter'){
+            handleLogin();
+        }
+    } 
 
     return (
         <div className="login-container">
@@ -60,7 +67,7 @@ const Login = (props) => {
                             value={valueLogin} onChange={(e) => {setValueLogin(e.target.value)}}
                         />
                         <input type='password' className={objValidInput.isValidPassword ? 'form-control' : 'is-invalid form-control'} placeholder='Password' 
-                            value={password} onChange={(e) => {setPassword(e.target.value)}}
+                            value={password} onChange={(e) => {setPassword(e.target.value)}} onKeyPress={(e) => handlePressEnter(e)}
                         />
                         <button className='btn btn-primary' onClick={() => handleLogin()}> Login </button>
                         <span className='text-center'>
