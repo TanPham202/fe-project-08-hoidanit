@@ -4,6 +4,8 @@ const instance = axios.create({
     baseURL: 'http://localhost:8080'
 })
 
+instance.defaults.withCredentials = true;
+
 instance.interceptors.request.use(function (config){
     return config;
 }, function(error){
